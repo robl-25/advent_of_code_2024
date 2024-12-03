@@ -1,5 +1,3 @@
-## Challenge 1
-
 ### Day 1: Historian Hysteria
 
 #### Part 1
