@@ -13,9 +13,9 @@ It seems like the goal of the program is just to **multiply some numbers**. It d
 However, because the program's memory has been corrupted, there are also many invalid characters that should be **ignored**, even if they look like part of a mul instruction. Sequences like `mul(4*`, `mul(6,9!`, `?(12,34)`, or` mul ( 2 , 4 )` do nothing.
 
 For example, consider the following section of corrupted memory:
-```
-xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))
-```
+<pre><code>
+x<b>mul(2,4)</b>%&mul[3,7]!@^do_not_<b>mul(5,5)</b>+mul(32,64]then(<b>mul(11,8)</b><b>mul(8,5)</b>)
+</code></pre>
 Only the four highlighted sections are real `mul` instructions. Adding up the result of each instruction produces **`161`** `(2*4 + 5*5 + 11*8 + 8*5)`.
 
 Scan the corrupted memory for uncorrupted `mul` instructions. **What do you get if you add up all of the results of the multiplications?**
@@ -32,8 +32,9 @@ There are two new instructions you'll need to handle:
 Only the **most recent** `do()` or `don't()` instruction applies. At the beginning of the program, `mul` instructions are **enabled**.
 
 For example:
-
-`xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))`
+<pre><code>
+x<b>mul(2,4)</b>&mul[3,7]!^<b>don't()</b>_mul(5,5)+mul(32,64](mul(11,8)un<b>do()</b>?<b>mul(8,5)</b>)
+</code></pre>
 
 This corrupted memory is similar to the example from before, but this time the `mul(5,5)` and `mul(11,8)` instructions are **disabled** because there is a `don't()` instruction before them. The other `mul` instructions function normally, including the one at the end that gets re-**enabled** by a `do()` instruction.
 
