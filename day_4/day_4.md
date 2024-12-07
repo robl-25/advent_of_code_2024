@@ -42,7 +42,7 @@ S.S.S.S.SS
 ```
 Take a look at the little Elf's word search. **How many times does `XMAS` appear?**
 
-#### Part Two
+#### Part 2
 
 The Elf looks quizzically at you. Did you misunderstand the assignment?
 
