@@ -27,7 +27,7 @@ def is_valid(printing_order):
     return True
 
 
-def key(number1, number2):
+def key(number1, number2, rules):
     rule1 = Rule(upper=number2, lower=number1)
     rule2 = Rule(upper=number1, lower=number2)
 
@@ -57,7 +57,7 @@ total = 0
 
 for printing_order in data:
     if not is_valid(printing_order):
-        ordered_printin_order = sorted(printing_order, key=cmp_to_key(lambda a, b: key(a, b)))
+        ordered_printin_order = sorted(printing_order, key=cmp_to_key(lambda a, b: key(a, b, rules)))
         total += ordered_printin_order[len(printing_order) // 2]
 
 print(total)
