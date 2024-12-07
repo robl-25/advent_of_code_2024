@@ -57,11 +57,7 @@ total = 0
 
 for printing_order in data:
     if not is_valid(printing_order):
-        printing_order_set = set(printing_order)
-        
-        applicable_rules = [rule for rule in rules if rule.applicable(printing_order)]
         ordered_printin_order = sorted(printing_order, key=cmp_to_key(lambda a, b: key(a, b)))
-        
         total += ordered_printin_order[len(printing_order) // 2]
 
 print(total)
