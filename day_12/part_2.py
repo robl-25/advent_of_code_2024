@@ -24,6 +24,16 @@ def enumerate_n(iterable, start=0, n=1):
 class Region:
     plots: set=field(default_factory=set)
 
+    def _check_corners(self, neighbors, vertical_direction, horizontal_direction):
+        if neighbors[vertical_direction] not in self.plots and neighbors[horizontal_direction] not in self.plots:
+            return 1
+        
+        if neighbors[vertical_direction] in self.plots and neighbors[horizontal_direction] in self.plots:
+            return neighbors[vertical_direction + horizontal_direction] not in self.plots
+
+        return 0
+
+
     def corners(self):
         corners_total = 0
         
@@ -39,17 +49,10 @@ class Region:
                 'southwest': plot._extra_neighbor('southwest')
             }
 
-            if (neighbors['north'] not in self.plots and neighbors['west'] not in self.plots) or ((neighbors['north'] in self.plots and neighbors['west'] in self.plots) and neighbors['northwest'] not in self.plots):
-                corners_total += 1
-
-            if (neighbors['north'] not in self.plots and neighbors['east'] not in self.plots) or ((neighbors['north'] in self.plots and neighbors['east'] in self.plots) and neighbors['northeast'] not in self.plots):
-                corners_total += 1
-
-            if (neighbors['south'] not in self.plots and neighbors['west'] not in self.plots) or ((neighbors['south'] in self.plots and neighbors['west'] in self.plots) and neighbors['southwest'] not in self.plots):
-                corners_total += 1
-
-            if (neighbors['south'] not in self.plots and neighbors['east'] not in self.plots) or ((neighbors['south'] in self.plots and neighbors['east'] in self.plots) and neighbors['southeast'] not in self.plots):
-                corners_total += 1
+            corners_total += self._check_corners(neighbors, 'north', 'west')
+            corners_total += self._check_corners(neighbors, 'north', 'east')
+            corners_total += self._check_corners(neighbors, 'south', 'west')
+            corners_total += self._check_corners(neighbors, 'south', 'east')
 
         return corners_total
 
