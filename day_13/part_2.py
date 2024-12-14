@@ -1,9 +1,6 @@
 from dataclasses import dataclass
-from dataclasses import field
 from itertools import batched
 import re
-from pprint import pp
-from functools import cache
 
 
 @dataclass 
@@ -28,46 +25,6 @@ class Machine:
     button_a: Button
     button_b: Button
     prize: Prize
-
-
-@cache
-def tokens(button_a, button_b, prize, current_cost, current_position):
-    if current_position == prize.coords:
-        return current_cost
-
-    if current_position[0] > prize.coords[0]:
-        return float('inf')
-
-    if current_position[1] > prize.coords[1]:
-        return float('inf')
-
-    coords_a = (
-        current_position[0] + button_a.step[0],
-        current_position[1] + button_a.step[1]
-    )
-
-    result_a = tokens(
-        button_a,
-        button_b,
-        prize,
-        current_cost + button_a.cost,
-        coords_a
-    )
-
-    coords_b = (
-        current_position[0] + button_b.step[0],
-        current_position[1] + button_b.step[1]
-    )
-
-    result_b = tokens(
-        button_a,
-        button_b,
-        prize,
-        current_cost + button_b.cost,
-        coords_b
-    )
-
-    return min(result_a, result_b)
 
 
 with open('input.txt') as f:
