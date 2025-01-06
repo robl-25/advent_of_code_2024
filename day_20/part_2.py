@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from dataclasses import field
 from collections import Counter
 from itertools import product
-from pprint import pp
 import heapq
 
 MAX_CHEAT_SIZE=20
@@ -129,7 +128,6 @@ cheat_nodes = set()
 for a, b in product(reachable_nodes, reachable_nodes):
     if a.manhattan_distance(b) in range(2, MAX_CHEAT_SIZE + 1) and (b, a) not in cheat_nodes:
         cheat_nodes.add((a, b))
-
 
 counter = Counter(abs(a.distance - b.distance) - a.manhattan_distance(b) for a, b in cheat_nodes)
 
